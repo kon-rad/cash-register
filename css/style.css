@@ -20,6 +20,9 @@ body {
   color: #ffffff;
   display: inline-block;
 }
+.display-logo {
+  padding: 4px;
+}
 .instructions {
   margin-bottom: 40px;
 }
@@ -44,7 +47,7 @@ body {
 	background-color: #000000;
   padding: 0px;
   font-size: 23px;
-  width: 93%;
+  width: 98%;
   margin: 20px auto 0px auto;
   display: block;
 }
