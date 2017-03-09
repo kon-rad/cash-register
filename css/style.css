@@ -1,0 +1,61 @@
+
+.controls-wrapper img {
+  margin: 0 auto;
+  width: 460px;
+  display: block;
+  margin-top: 30px;
+}
+.display-right {
+  width: 300px;
+  height: 180px;
+  background-color: #000000;
+  border: 3px solid #282828;
+  border-radius: 2%;
+  float: right;
+  margin: 30px 20px 40px 0px;
+}
+.display-logo img {
+  height: 30px;
+  width: auto;
+  display: inline-block;
+}
+.display-logo h5 {
+  color: #ffffff;
+  display: inline-block;
+}
+.display-wrapper {
+  overflow: auto;
+}
+.output {
+  float:left;
+  margin: 30px 20px 40px 20px;
+  background-color: white;
+  height: 180px;
+  width: 280px;
+	border: solid 1px #999999;
+  margin-bottom: 40px;
+  overflow: scroll;
+  font-family: monaco, Consolas, "Lucida Console", monospace;
+  font-size: 11px;
+  text-align: right;
+  padding-right: 16px;
+}
+.input {
+  margin-top: 20px;
+	font-family: 'Orbitron', sans-serif;
+	color: #39ff14;
+	background-color: #000000;
+  padding: 0px;
+  font-size: 23px;
+}
+.register {
+	height: 1200px;
+  width: 100%;
+}
+.register-outer {
+  border: 6px solid rgb(83, 83, 100);
+  border-radius: 6%;
+  width: 660px;
+  height: 660px;
+  background-color: rgb(75, 75, 90);
+}

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	
+	<title>Cash Register</title>
+	
+	<!-- Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
+
+	<!-- Bootstrap CSS -->
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	
+	<!-- Icon Fonts -->
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	
+	<!-- CSS -->
+	<link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+            <h1>Cash Register</h1>
+
+            </div>    
+
+            <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 register" id="register">
+                <div class="register-outer">
+                    <div class="display-wrapper">
+			            <div class="output" id="output">
+			                <p><br></p>
+			                <p><br></p>
+			                <p><br></p>
+			                <p><br></p>
+			                <p><br></p>
+			                <p><br></p>
+			            </div>
+			            <div class="display-right">
+			                <div class="display-logo">
+			                    <img src="image/fms-logo.png" alt="logo">
+			                    <h5>Electronic Cash Register</h5>
+				                <input class="input" type="text" placeholder="" id="input">
+			                </div>
+			            </div>	
+			        </div>	
+
+			        <div class="controls-wrapper">
+			            <button id="test"> TEST BUTTON</button>
+				        <img src="image/keypad.png" alt="keypad">
+			        </div>	            
+                </div>
+            </div>   
+
+
+
+
+            <div class="col-xs-12">
+	            <h3>Commands:</h3>
+	            <p>
+	            add // represent current moneys as a string<br>
+				// e.g. $total #x20 #x10 #x5 #x2 #x1<br>
+				> show<br>
+				$0 0x20 0x10 0x5 0x2 0x1<br><br>
+
+				// add bills in each denomination: #$20 #$10 #$5 #$2 #$1<br>
+				> add 2 4 6 4 10<br>
+				$128 2x20 4x10 6x5 4x2 10x1<br><br>
+
+				// take bills in each denomination: #$20 #$10 #$5 #$2 #$1<br>
+				> take 1 4 3 0 10<br>
+				$43 1x20 0x10 3x5 4x2 0x1<br><br>
+
+				// given a dollar amount, remove money from cash register to make change<br>
+				> change 11<br>
+				0x20 0x10 1x5 3x2 0x1<br><br>
+
+				// the money is removed from the register<br>
+				> show<br>
+				$32 1x20 0x10 2x5 1x2 0x1<br><br>
+
+				// raise error if change cannot be made<br>
+				> change 14<br>
+				sorry<br>
+				</p>
+
+            </div>
+        </div>
+    </div>
+
+	<!-- JAVASCRIPT FILES -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="js/script.js"></script>
+
+</body>
+</html>
