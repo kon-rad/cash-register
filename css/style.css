@@ -1,45 +1,42 @@
 
-.controls-wrapper img {
-  margin: 0 auto;
-  width: 460px;
-  display: block;
-  margin-top: 30px;
+body {
+  padding-top: 40px;
 }
 .display-right {
-  width: 300px;
   height: 180px;
   background-color: #000000;
   border: 3px solid #282828;
   border-radius: 2%;
-  float: right;
-  margin: 30px 20px 40px 0px;
+  margin: 30px 2% 30px 2%;
+  width: 44%;
+  float: left;
 }
 .display-logo img {
   height: 30px;
   width: auto;
   display: inline-block;
 }
-.display-logo h5 {
+.display-logo h6 {
   color: #ffffff;
   display: inline-block;
 }
-.display-wrapper {
-  overflow: auto;
+.instructions {
+  margin-bottom: 40px;
 }
 .output {
-  float:left;
-  margin: 30px 20px 40px 20px;
-  background-color: white;
-  height: 180px;
-  width: 280px;
 	border: solid 1px #999999;
-  margin-bottom: 40px;
   overflow: scroll;
   font-family: monaco, Consolas, "Lucida Console", monospace;
   font-size: 11px;
   text-align: right;
   padding-right: 16px;
+  margin: 30px 3% 30px 3%;
+  background-color: white;
+  height: 180px;
+  width: 44%;
+  float: left;
 }
+
 .input {
   margin-top: 20px;
 	font-family: 'Orbitron', sans-serif;
@@ -47,15 +44,26 @@
 	background-color: #000000;
   padding: 0px;
   font-size: 23px;
-}
-.register {
-	height: 1200px;
-  width: 100%;
+  width: 93%;
+  margin: 20px auto 0px auto;
+  display: block;
 }
 .register-outer {
   border: 6px solid rgb(83, 83, 100);
-  border-radius: 6%;
-  width: 660px;
-  height: 660px;
+  border-radius: 4%;
   background-color: rgb(75, 75, 90);
+  min-height: 260px;
+}
+
+
+@media (max-width: 768px) { 
+  .display-right {
+    width: 94%;
+  }
+  .output {
+    width: 94%;
+  }
+  .register-outer {
+    height: 500px;
+  }
 }
