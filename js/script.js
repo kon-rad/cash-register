@@ -110,6 +110,12 @@ $(document).ready(function() {
 		}
 	}
 
+	// Create change output string
+	function createOutput(arr) {
+		return arr[0] + "x20 " + arr[1] + "x10 " 
+		    + arr[2] + "x5 " + arr[3] + "x2 " + arr[4] + "x1";
+	}	
+
     // Take Function
 	function take(com) {
 		for(i = 1; i < com.length; i++) {
