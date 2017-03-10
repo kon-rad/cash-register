@@ -76,6 +76,7 @@ $(document).ready(function() {
 		} 
 		if (change > 0) {
 			console.log("change " + change + ' change greater than 0 and countArr:' + countArr)
+			cid = backupCID;
 			return "Error: Insufficient funds";
 		} else {
 	        return createOutput(countArr);
