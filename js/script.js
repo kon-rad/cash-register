@@ -33,7 +33,7 @@ $(document).ready(function() {
 			// check if numbers are entered
 			} else if (isNaN(parseInt(com[1])) || isNaN(parseInt(com[2])) || isNaN(parseInt(com[3])) 
 				|| isNaN(parseInt(com[4])) || isNaN(parseInt(com[5])) || com.length != 6) {
-				console.log(com);
+				
 				$output.append(newLine + "Error: please enter correct format");
 		    // add command
 			} else if(com[0] == "add") {
@@ -65,18 +65,21 @@ $(document).ready(function() {
 
 	    // loop through denominations and add up change to give out
 	    iterateDenom();
-	    console.log("change: " + change + " countArr: " + countArr + " cid: " + cid)
 	    
 		if(change > 0) {
-			cid = backupCID;
+			console.log("1st, before, cid: " + cid + " backupCID: " + backupCID)
+			cid = JSON.parse(JSON.stringify(backupCID));
+			console.log("1st, after, cid: " + cid + " backupCID: " + backupCID)
+
 			change = backupChange;
 			countArr = [0, 0, 0, 0, 0];
 			evenOdd();
 			iterateDenom();
 		} 
 		if (change > 0) {
-			console.log("change " + change + ' change greater than 0 and countArr:' + countArr)
-			cid = backupCID;
+			console.log("2nd before cid: " + cid + " backupCID " + backupCID);
+			cid = JSON.parse(JSON.stringify(backupCID));
+			console.log("2nd after cid: " + cid + " backupCID " + backupCID);
 			return "Error: Insufficient funds";
 		} else {
 	        return createOutput(countArr);
@@ -86,7 +89,6 @@ $(document).ready(function() {
 		function iterateDenom() {
 
 		    for(i = 0; i < cid.length; i++) {
-		    	console.log("change: " + change + " countArr: " + countArr);
 
 			  	var denomination = parseInt(cid[i][0]);
 
@@ -132,9 +134,7 @@ $(document).ready(function() {
 
     // Show Function
 	function show() {
-		console.log(cid);
 		totalCID = findTotal(cid);
-		console.log(totalCID + " totals");
 		var displayString = "$" + totalCID;
 		for(i = 0; i < cid.length; i++) {
 		    displayString += " " + cid[i][1] + "x" + cid[i][0];
