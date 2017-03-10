@@ -55,32 +55,59 @@ $(document).ready(function() {
 	function getChange(change) {
 	  
 	    if(change > totalCID) {
-			return "Error: Insufficient funds in cash register";	    
+			return "Error: Insufficient funds";	    
 	    }
 	  
 	    var backupCID = JSON.parse(JSON.stringify(cid));
+	    var backupChange = change;
+
+		var countArr = [0, 0, 0, 0, 0];
 
 	    // loop through denominations and add up change to give out
-	    var output = "";
-	    for(var i = 0; i < cid.length; i++) {
-
-	  	var denomination = parseInt(cid[i][0]);
-        var count = 0;
-
-	    if (change >= denomination && (cid[i][1] > 0)) {
-			  while ((change / denomination >= 1) && (cid[i][1] > 0)) {
-			    cid[i][1]--;
-			    change -= denomination;
-			    count++;
-			  }
-			}
-			output += count + "x" + denomination + " ";
-		}	
+	    iterateDenom();
+	    console.log("change: " + change + " countArr: " + countArr + " cid: " + cid)
+	    
 		if(change > 0) {
 			cid = backupCID;
-			return "Error: Insufficient funds in cash register";
+			change = backupChange;
+			countArr = [0, 0, 0, 0, 0];
+			evenOdd();
+			iterateDenom();
+		} 
+		if (change > 0) {
+			console.log("change " + change + ' change greater than 0 and countArr:' + countArr)
+			return "Error: Insufficient funds";
+		} else {
+	        return createOutput(countArr);
 		}
-    return output;
+
+		// Iterate over denominations
+		function iterateDenom() {
+
+		    for(i = 0; i < cid.length; i++) {
+		    	console.log("change: " + change + " countArr: " + countArr);
+
+			  	var denomination = parseInt(cid[i][0]);
+
+			    if (change >= denomination && (cid[i][1] > 0)) {
+
+			    	var remove = Math.floor(change / denomination);
+			    	if(remove > 0) {
+			    		change -= (remove * denomination);
+			    		cid[i][1] -= remove;
+			    		countArr[i] += remove;
+			    	} 
+				} 
+			}	
+		}
+
+		function evenOdd() {
+			if(cid[3][1] >= 3 && change >= 6) {
+				cid[3][1] -= 3;
+				change -= 6;
+				countArr[3] += 3;
+			}
+		}
 	}
 
     // Take Function
@@ -90,7 +117,7 @@ $(document).ready(function() {
 			cid[i - 1][1] -= parseInt(com[i]);
 			if(cid[i - 1][1] < 0) {
 				cid[i - 1][1] += parseInt(com[i]);
-				return "Error: Insufficient funds in cash register";
+				return "Error: Insufficient funds";
 			}
 		}
 		return show();		
