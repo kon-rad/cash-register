@@ -3,6 +3,9 @@ $(document).ready(function() {
     var price,
         i, 
         newLine = "<br>",
+        errorInsuf = "Error: Insufficient funds",
+        errorFormat = "Error: Please enter correct format",
+        clear = "<br><br><br><br><br><br><br><br><br><br><br>"
         $input = $('#input'),
         $output = $('#output'),
 		cid = [["20", 0], ["10", 0], ["5", 0], ["2", 0], ["1", 0]],
@@ -19,29 +22,28 @@ $(document).ready(function() {
 		  $output.append(newLine + inputText);
 		  com = inputText.toLowerCase().split(' ');
 
-            // show command
+            // Show command
 			if(com[0] == "show") {
 				$output.append(newLine + show());
-			// change command 
+			// Clear command 
+			} else if(com[0] == "clear") {
+				$output.empty().append(clear);
+			// Change command 
 			} else if (com[0] == "change") {
 				if(com.length != 2 || isNaN(parseInt(com[1]))) {
-					$output.append(newLine + "Error: please enter correct format"); 
+					$output.append(newLine + errorFormat); 
 				} else {
 					// return proper change
 					$output.append(newLine + getChange(parseInt(com[1])));
 				}
-			// check if numbers are entered
+			// Check for correct format
 			} else if (isNaN(parseInt(com[1])) || isNaN(parseInt(com[2])) || isNaN(parseInt(com[3])) 
 				|| isNaN(parseInt(com[4])) || isNaN(parseInt(com[5])) || com.length != 6) {
-				
-				$output.append(newLine + "Error: please enter correct format");
-		    // add command
+				$output.append(newLine + errorFormat);
+		    // Add command
 			} else if(com[0] == "add") {
-				for(i = 1; i < com.length; i++) {
-					// Add cash to register by use of parallel arrays
-					cid[i - 1][1] += parseInt(com[i]);
-				}
-				$output.append(newLine + show());
+                add(com);
+		        $output.append(newLine + show());
 		    // Take command
 			} else if(com[0] == "take") {
 				$output.append(newLine + take(com));
@@ -55,32 +57,29 @@ $(document).ready(function() {
 	function getChange(change) {
 	  
 	    if(change > totalCID) {
-			return "Error: Insufficient funds";	    
+			return errorInsuf;	    
 	    }
 	  
-	    var backupCID = JSON.parse(JSON.stringify(cid));
-	    var backupChange = change;
+	    var backupCID = JSON.parse(JSON.stringify(cid)),
+	        backupChange = change,
+	        countArr = [0, 0, 0, 0, 0];
 
-		var countArr = [0, 0, 0, 0, 0];
-
-	    // loop through denominations and add up change to give out
+	    // Loop through denominations and add up change to give out
 	    iterateDenom();
 	    
 		if(change > 0) {
-			console.log("1st, before, cid: " + cid + " backupCID: " + backupCID)
+			// Reinstate cid from backup and attempt evenOdd function
 			cid = JSON.parse(JSON.stringify(backupCID));
-			console.log("1st, after, cid: " + cid + " backupCID: " + backupCID)
-
 			change = backupChange;
 			countArr = [0, 0, 0, 0, 0];
+
 			evenOdd();
 			iterateDenom();
 		} 
 		if (change > 0) {
-			console.log("2nd before cid: " + cid + " backupCID " + backupCID);
+			// Reinstate cid from backup and display error
 			cid = JSON.parse(JSON.stringify(backupCID));
-			console.log("2nd after cid: " + cid + " backupCID " + backupCID);
-			return "Error: Insufficient funds";
+			return errorInsuf;
 		} else {
 	        return createOutput(countArr);
 		}
@@ -119,6 +118,14 @@ $(document).ready(function() {
 		    + arr[2] + "x5 " + arr[3] + "x2 " + arr[4] + "x1";
 	}	
 
+	// Add Function
+	function add(com) {
+		for(i = 1; i < com.length; i++) {
+			// Add cash to register by use of parallel arrays
+			cid[i - 1][1] += parseInt(com[i]);
+		}
+	}
+
     // Take Function
 	function take(com) {
 		for(i = 1; i < com.length; i++) {
@@ -126,7 +133,7 @@ $(document).ready(function() {
 			cid[i - 1][1] -= parseInt(com[i]);
 			if(cid[i - 1][1] < 0) {
 				cid[i - 1][1] += parseInt(com[i]);
-				return "Error: Insufficient funds";
+				return errorInsuf;
 			}
 		}
 		return show();		
@@ -142,10 +149,10 @@ $(document).ready(function() {
 		return displayString;
 	}
 
-	//Find total cash in drawer function
+	// Find total cash in drawer function
 	function findTotal(arr) {
 		total = 0;
-		for(var i = 0; i < arr.length; i++) {
+		for(i = 0; i < arr.length; i++) {
 			total += arr[i][1] * parseInt(arr[i][0]);
 		}
 		return total;
